@@ -17,7 +17,7 @@ gh release upload vX.Y.Z /tmp/noaa-current-stations-release/currents.json
 gh release download vX.Y.Z --pattern currents.json --output /tmp/currents.json --clobber
 ```
 
-Run `noaa-current-stations check` before releasing a stale bundle. The scheduled
+Run `node bin/noaa-current-stations.mjs check` before releasing a stale bundle. The scheduled
 `update-stations` workflow creates a review issue when NOAA's station list changes.
 
 ## First publish
