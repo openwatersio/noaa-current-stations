@@ -100,8 +100,7 @@ exactly; a reference station may appear at several bins with different constitue
 - **Minor-axis constituents.** NOAA publishes `minorAmplitude`/`minorPhaseGMT` for a 2D
   rotary model; a major-axis model doesn't use them, so they aren't carried per station.
   Bundling them was measured and rejected — worth a median 4% of peak speed, and a 2D
-  magnitude series never crosses zero, which silently yields no slack events at all
-  (openwatersio/slackwater-ios#102).
+  magnitude series never crosses zero, which silently yields no slack events at all.
 
   The bundle does carry a **`crossFlow` census** at the root: how much perpendicular flow
   the major-axis model drops, and the worst station by ratio and by knots. `validate`

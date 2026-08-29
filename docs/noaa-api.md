@@ -222,7 +222,7 @@ self-contained, since both halves come from NOAA:
 2. Pull NOAA's own `currents_predictions` (`interval=max_slack`) for a window.
 3. Predict that window from the constituents and diff the events.
 
-`current-stations golden` captures both halves into one fixture so the comparison
+`noaa-current-stations golden` captures both halves into one fixture so the comparison
 replays offline. Expect ~10 min / 0.05 kn at a clean reversing station; see
 [validation.md](validation.md) for measured results and realistic tolerances.
 

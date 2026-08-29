@@ -1,4 +1,4 @@
-# current-stations
+# NOAA Current Stations
 
 **NOAA CO-OPS tidal-current station data — the extractor, the schema, and the API's
 undocumented behaviour, in one place.**
@@ -13,27 +13,27 @@ schema — so you don't have to talk to the API at all.
 ## Install
 
 ```bash
-npm install @sailingnaturali/current-stations
+npm install @openwaters/noaa-current-stations
 ```
 
 ## Use it as a CLI
 
 ```bash
 # every US current station → currents.json  (~2,800 stations, several minutes, paced)
-npx current-stations extract currents.json
+npx noaa-current-stations extract currents.json
 
 # one region
-npx current-stations extract salish.json --box 47,-125,49.2,-122
+npx noaa-current-stations extract salish.json --box 47,-125,49.2,-122
 
 # just the stations you care about
-npx current-stations extract mine.json --stations PUG1717,PUG1701
+npx noaa-current-stations extract mine.json --stations PUG1717,PUG1701
 
 # capture a validation fixture: constituents + NOAA's own predictions, one file
-npx current-stations golden pug1741.json --station PUG1741 --bin 27 \
+npx noaa-current-stations golden pug1741.json --station PUG1741 --bin 27 \
   --start 2026-07-19 --end 2026-07-21
 
 # has NOAA's station list changed since the bundle was built? (one request; exit 1 if so)
-npx current-stations check
+npx noaa-current-stations check
 ```
 
 > A full US extraction is ~2,800 paced requests and takes several minutes. NOAA
@@ -42,7 +42,7 @@ npx current-stations check
 ## Use it as a library
 
 ```js
-import { extractBundle, fetchCurrentPredictions, fetchHarcon } from '@sailingnaturali/current-stations';
+import { extractBundle, fetchCurrentPredictions, fetchHarcon } from '@openwaters/noaa-current-stations';
 
 // A bundle you can ship and predict from offline.
 const { bundle, skipped } = await extractBundle({ stations: ['PUG1717'] });
@@ -120,12 +120,12 @@ The weekly pre-flight only escalates to a full extraction when something moved, 
 common case costs a single request. Either way, a change opens a **pull request** with
 the validation summary — nothing updates silently.
 
-`stations.lock.json` pins the current list; `current-stations check` is the same
+`stations.lock.json` pins the current list; `noaa-current-stations check` is the same
 pre-flight you can run yourself, and exits non-zero on drift.
 
 ```bash
-npx current-stations check                    # has NOAA's list moved?
-npx current-stations validate currents.json   # structural check on a bundle
+npx noaa-current-stations check                    # has NOAA's list moved?
+npx noaa-current-stations validate currents.json   # structural check on a bundle
 ```
 
 `validate` is what gates the automated PR: it fails on a subordinate whose reference
@@ -136,7 +136,7 @@ lost its Z₀ offsets — the shapes a truncated extraction takes.
 
 Both halves of a validation come from NOAA, so the check is self-contained: predict from
 `harcon` constituents, compare against NOAA's own `currents_predictions` for the same
-days. `current-stations golden` captures both into one fixture that replays offline.
+days. `noaa-current-stations golden` captures both into one fixture that replays offline.
 
 Expect ~10 min / 0.05 kn at a clean reversing station. Measured results, realistic
 tolerances, and the list of convention questions this method settled:
@@ -144,7 +144,7 @@ tolerances, and the list of convention questions this method settled:
 
 ## Who uses this
 
-- [slackwater-engine](https://github.com/sailingnaturali/slackwater-engine) — Swift tide
+- [slackwater-engine](https://github.com/openwatersio/slackwater-engine) — Swift tide
   and current engine; vendors the released bundle for offline prediction.
 - [signalk-currents](https://github.com/sailingnaturali/signalk-currents) — SignalK
   plugin serving live and offline currents to a boat's instruments.

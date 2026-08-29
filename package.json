@@ -1,12 +1,12 @@
 {
-  "name": "@sailingnaturali/current-stations",
-  "version": "0.3.0",
+  "name": "@openwaters/noaa-current-stations",
+  "version": "0.4.0",
   "description": "NOAA CO-OPS tidal-current station data: harmonic constituents, subordinate offsets, and the live predictions API — extractor, schema, and the API's undocumented gotchas",
   "type": "module",
   "main": "index.js",
   "types": "index.d.ts",
   "bin": {
-    "current-stations": "bin/current-stations.mjs"
+    "noaa-current-stations": "bin/noaa-current-stations.mjs"
   },
   "files": [
     "index.js",
@@ -18,10 +18,10 @@
   ],
   "scripts": {
     "test": "node --test",
-    "extract:us": "node bin/current-stations.mjs extract currents.json",
+    "extract:us": "node bin/noaa-current-stations.mjs extract currents.json",
     "validate": "node --test",
     "bundle:min": "node -e \"const f=require('fs');f.writeFileSync('currents.min.json',JSON.stringify(JSON.parse(f.readFileSync('currents.json','utf8'))))\"",
-    "validate:bundle": "node bin/current-stations.mjs validate currents.json"
+    "validate:bundle": "node bin/noaa-current-stations.mjs validate currents.json"
   },
   "keywords": [
     "noaa",
@@ -35,10 +35,10 @@
   ],
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/sailingnaturali/current-stations.git"
+    "url": "git+https://github.com/openwatersio/noaa-current-stations.git"
   },
-  "homepage": "https://github.com/sailingnaturali/current-stations#readme",
-  "bugs": "https://github.com/sailingnaturali/current-stations/issues",
+  "homepage": "https://github.com/openwatersio/noaa-current-stations#readme",
+  "bugs": "https://github.com/openwatersio/noaa-current-stations/issues",
   "license": "MIT",
   "publishConfig": {
     "access": "public"

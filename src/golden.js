@@ -35,7 +35,7 @@ export async function captureGolden(stationId, currbin, start, end, opts = {}) {
   const azi = cons[0].azi ?? 0;
   return {
     note: 'NOAA CO-OPS: harmonic constituents + NOAA\'s own published predictions for the '
-      + 'same window. Public domain. Regenerate with `current-stations golden`.',
+      + 'same window. Public domain. Regenerate with `noaa-current-stations golden`.',
     station: stationId,
     bin: currbin,
     start: start.toISOString(),

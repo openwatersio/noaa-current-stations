@@ -12,7 +12,7 @@
 // The 0.241 also holds across the full 2,800 bin-records across NOAA's 850
 // harmonic stations (not every bin at every one of NOAA's ~2,785 stations —
 // subordinates have no harcon at all), so the bound below is safe for bins we
-// don't currently take. Full investigation: openwatersio/slackwater-ios#102.
+// don't currently take.
 
 /** Provenance, carried in the census so the number explains itself in the file. */
 const MEASURED =

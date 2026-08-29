@@ -45,6 +45,6 @@ test('buildLock carries counts, ids, and provenance', () => {
   const lock = buildLock([st('A', 'H'), st('B', 'S')]);
   assert.equal(lock.counts.total, 2);
   assert.deepEqual(lock.ids, ['A:H', 'B:S']);
-  assert.match(lock.note, /current-stations check/);
+  assert.match(lock.note, /noaa-current-stations check/);
   assert.ok(Date.parse(lock.generated));
 });

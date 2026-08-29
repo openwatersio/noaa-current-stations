@@ -79,7 +79,7 @@ export async function fetchCurrentPredictions(stationId, bin, start, end, opts =
   const ymd = (d) => d.toISOString().slice(0, 10).replace(/-/g, '');
   const params = new URLSearchParams({
     product: 'currents_predictions', interval: 'max_slack', time_zone: 'gmt',
-    units: 'english', format: 'json', application: opts.application ?? 'current-stations',
+    units: 'english', format: 'json', application: opts.application ?? 'noaa-current-stations',
     station: stationId, bin: String(bin), begin_date: ymd(start), end_date: ymd(end),
   });
   const body = await getJson(`${DATAGETTER}?${params}`, { paceMs: 0, ...opts });

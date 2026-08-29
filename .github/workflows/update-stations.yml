@@ -1,5 +1,5 @@
 name: update-stations
-# Keeps the committed bundle in step with NOAA, and files a review issue when it moves.
+# Keeps the committed bundle in step with NOAA and files a review issue when it moves.
 #
 # Two cadences, because they catch different things:
 #   weekly  — cheap pre-flight (ONE request for the station list). Full extraction only
@@ -21,10 +21,8 @@ on:
         default: true
 permissions:
   contents: write
-  # Issues, not pull-requests: GITHUB_TOKEN is refused `createPullRequest` unless
-  # "Allow GitHub Actions to create and approve pull requests" is enabled, and that
-  # setting is not available to this org. So this workflow pushes the branch and
-  # opens an ISSUE carrying the review material plus a one-click compare link.
+  # The workflow pushes a branch and files an issue carrying the review material plus
+  # a one-click compare link.
   issues: write
 jobs:
   update:
@@ -40,7 +38,7 @@ jobs:
         id: preflight
         run: |
           set +e
-          node bin/current-stations.mjs check 2> drift.txt
+          node bin/noaa-current-stations.mjs check 2> drift.txt
           echo "drifted=$([ $? -eq 0 ] && echo false || echo true)" >> "$GITHUB_OUTPUT"
           cat drift.txt
 
@@ -59,8 +57,8 @@ jobs:
       - name: Full extraction
         if: steps.decide.outputs.run == 'true'
         run: |
-          node bin/current-stations.mjs extract currents.json --pace 300
-          node bin/current-stations.mjs lock stations.lock.json
+          node bin/noaa-current-stations.mjs extract currents.json --pace 300
+          node bin/noaa-current-stations.mjs lock stations.lock.json
 
       # Validate BEFORE pushing anything. A human opens the PR from the compare link in
       # the issue, so CI does run on it eventually — but this gate fires earlier and
@@ -68,7 +66,7 @@ jobs:
       # someone has to reason about. Failing here also keeps the bad bundle off origin.
       - name: Validate the bundle
         if: steps.decide.outputs.run == 'true'
-        run: node bin/current-stations.mjs validate currents.json
+        run: node bin/noaa-current-stations.mjs validate currents.json
 
       - name: Push the branch and file a review issue if anything changed
         if: steps.decide.outputs.run == 'true'
@@ -103,7 +101,7 @@ jobs:
             echo "**[→ Open the pull request]($COMPARE)**"
             echo
             echo '```'
-            node bin/current-stations.mjs validate currents.json 2>&1
+            node bin/noaa-current-stations.mjs validate currents.json 2>&1
             echo '```'
             echo
             echo "Bundle diff: $CHANGED lines."

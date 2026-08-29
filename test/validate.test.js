@@ -65,7 +65,7 @@ test('rejects a malformed bundle rather than throwing', () => {
 });
 
 test('a partial census (no worstRatio yet) returns cleanly rather than throwing', () => {
-  // Regression for a real crash: bin/current-stations.mjs's logCrossFlow guarded
+  // Regression for a real crash: bin/noaa-current-stations.mjs's logCrossFlow guarded
   // `!cf` but then dereferenced `cf.worstRatio.ratio` and `cf.worstAbsolute.crossFlow`
   // unconditionally — a bundle whose census is present but partial (e.g. mid-refactor,
   // or a future producer that hasn't filled it in) threw TypeError instead of

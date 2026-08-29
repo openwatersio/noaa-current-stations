@@ -16,7 +16,7 @@ Both halves come from NOAA, so the comparison is self-contained:
    speed error.
 
 ```bash
-current-stations golden pug1741.json --station PUG1741 --bin 27 \
+noaa-current-stations golden pug1741.json --station PUG1741 --bin 27 \
   --start 2026-07-19 --end 2026-07-21
 ```
 
@@ -40,7 +40,7 @@ choice produces structural, obvious error, not noise:
 
 ## Measured results
 
-From the reference implementation ([slackwater-engine](https://github.com/sailingnaturali/slackwater-engine),
+From the reference implementation ([slackwater-engine](https://github.com/openwatersio/slackwater-engine),
 Swift), against NOAA's own predictions:
 
 | Check | Station(s) | Result |

@@ -55,8 +55,8 @@ export async function checkDrift(lock, opts = {}) {
 
 export function buildLock(stations) {
   return {
-    note: 'Pinned NOAA current-station list. `current-stations check` fails when NOAA\'s '
-      + 'live list no longer matches this. Regenerate with `current-stations lock`, and '
+    note: 'Pinned NOAA current-station list. `noaa-current-stations check` fails when NOAA\'s '
+      + 'live list no longer matches this. Regenerate with `noaa-current-stations lock`, and '
       + 're-extract the bundle when it changes.',
     generated: new Date().toISOString(),
     ...summarize(stations),

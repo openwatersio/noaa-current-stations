@@ -7,19 +7,19 @@ import { checkDrift, buildLock } from '../src/drift.js';
 import { validateBundle } from '../src/validate.js';
 import { fetchStationList } from '../src/noaa.js';
 
-const USAGE = `current-stations — NOAA CO-OPS tidal-current station data
+const USAGE = `noaa-current-stations — NOAA CO-OPS tidal-current station data
 
-  current-stations extract <out.json> [--box S,W,N,E] [--stations ID,ID] [--pace ms]
-  current-stations golden  <out.json> --station ID --bin N --start ISO --end ISO
-  current-stations check   [lock.json]   exit 1 if NOAA's list has drifted from the lock
-  current-stations lock    <out.json>    re-pin the lock to NOAA's current list
-  current-stations validate <bundle.json> structural check on a bundle
+  noaa-current-stations extract <out.json> [--box S,W,N,E] [--stations ID,ID] [--pace ms]
+  noaa-current-stations golden  <out.json> --station ID --bin N --start ISO --end ISO
+  noaa-current-stations check   [lock.json]   exit 1 if NOAA's list has drifted from the lock
+  noaa-current-stations lock    <out.json>    re-pin the lock to NOAA's current list
+  noaa-current-stations validate <bundle.json> structural check on a bundle
 
 Examples:
-  current-stations extract currents.json                       # all US stations
-  current-stations extract salish.json --box 47,-125,49.2,-122 # one region
-  current-stations extract mine.json --stations PUG1717,PUG1701
-  current-stations golden pug1741.json --station PUG1741 --bin 27 \\
+  noaa-current-stations extract currents.json                       # all US stations
+  noaa-current-stations extract salish.json --box 47,-125,49.2,-122 # one region
+  noaa-current-stations extract mine.json --stations PUG1717,PUG1701
+  noaa-current-stations golden pug1741.json --station PUG1741 --bin 27 \\
     --start 2026-07-19 --end 2026-07-21
 
 A full extraction is thousands of paced requests. NOAA throttles bulk callers.
@@ -83,7 +83,7 @@ if (cmd === 'extract') {
     for (const [label, ids] of [['ADDED', d.added], ['REMOVED', d.removed], ['RETYPED', d.retyped]]) {
       if (ids.length) log(`\n${label} (${ids.length}):\n  ${ids.join('\n  ')}`);
     }
-    log('\nNOAA\'s station list has changed. Re-extract the bundle, re-run `lock`, and '
+    log('\nNOAA\'s station list has changed. Re-extract the bundle, re-run `noaa-current-stations lock`, and '
       + 'release — consumers are pinned to a bundle that no longer matches NOAA.');
     process.exitCode = 1;
   }
