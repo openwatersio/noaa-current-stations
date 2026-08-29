@@ -15,9 +15,9 @@ jobs:
           node-version: 24
       - run: npm ci
       - run: npm test
-      # 0.1.0 was published by hand (a new package can't have a trusted publisher
-      # configured before it exists). Without this guard, cutting the v0.1.0 release
-      # to attach the bundle would fail on an already-published version.
+      # The bootstrap version is published by hand because a new package can't have a
+      # trusted publisher configured before it exists. The matching GitHub release still
+      # attaches the bundle, so skip its duplicate registry publish.
       - id: published
         run: |
           V=$(node -p "require('./package.json').version")
