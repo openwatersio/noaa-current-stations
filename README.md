@@ -117,8 +117,8 @@ as a diff. [`update-stations`](.github/workflows/update-stations.yml) keeps it c
 | Monthly | forced full extraction (~2,800 paced requests, ~25 min) | NOAA revising an existing station's constituents in place |
 
 The weekly pre-flight only escalates to a full extraction when something moved, so the
-common case costs a single request. Either way, a change opens a **pull request** with
-the validation summary — nothing updates silently.
+common case costs a single request. Either way, a change pushes a branch and files a
+review issue with the validation summary and pull-request link — nothing updates silently.
 
 `stations.lock.json` pins the current list; `noaa-current-stations check` is the same
 pre-flight you can run yourself, and exits non-zero on drift.
@@ -128,7 +128,7 @@ npx noaa-current-stations check                    # has NOAA's list moved?
 npx noaa-current-stations validate currents.json   # structural check on a bundle
 ```
 
-`validate` is what gates the automated PR: it fails on a subordinate whose reference
+`validate` gates the automated review branch: it fails on a subordinate whose reference
 went missing, duplicate ids, a harmonic station with no constituents, or a bundle that
 lost its Z₀ offsets — the shapes a truncated extraction takes.
 
