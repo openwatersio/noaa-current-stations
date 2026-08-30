@@ -16,6 +16,27 @@ schema — so you don't have to talk to the API at all.
 npm install @openwaters/noaa-current-stations
 ```
 
+## Use the bundle
+
+The extracted station bundle ships with the package, so the common case needs no
+network and no CLI run:
+
+```js
+import bundle from "@openwaters/noaa-current-stations/currents.json" with { type: "json" };
+
+// { note, generated, crossFlow, stations } — the records are under `stations`,
+// and their ids are bare NOAA keys, unprefixed.
+const deception = bundle.stations.find((s) => s.id === "PUG1701");
+```
+
+That path is a supported entry point and will not move without a major version.
+It adds about 260 KB to the download and 3.2 MB unpacked — JSON compresses well,
+so the wire cost is far smaller than the file. Consumers that only want the
+extractor or the schema can ignore it; nothing imports it implicitly.
+
+Regenerate it yourself with `npx noaa-current-stations extract currents.json` if
+you need fresher data than the last release.
+
 ## Use it as a CLI
 
 ```bash
